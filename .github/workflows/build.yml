@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
-        rust-version: [stable]
+        rust-version: [1.64.0] # Specify a compatible Rust version for wasm-bindgen v0.2.67
 
     steps:
       # Checkout repository
