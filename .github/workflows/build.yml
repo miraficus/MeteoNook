@@ -83,3 +83,13 @@ jobs:
         run: |
           npm test
           cargo test
+
+     # Upload Build Artifacts
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: MeteoNook-build-artifacts
+          path: |
+            ./dist           # Frontend build output
+            ./target/release # Rust build output
+
