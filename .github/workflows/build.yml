@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x] # Use older Node.js for OpenSSL compatibility
-        rust-version: [1.56.0] # Use Rust 1.56.0 for compatibility with older wasm-bindgen and .cargo/config
+        rust-version: [1.39.0] # Use Rust 1.39.0 for compatibility with wasm-bindgen v0.2.67
 
     steps:
       # Checkout repository
