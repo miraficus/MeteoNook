@@ -12,8 +12,8 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x] # Use older Node.js for OpenSSL compatibility
-        rust-version: [1.39.0] # Use Rust 1.39.0 for compatibility with wasm-bindgen v0.2.67
+        node-version: [16.x]
+        rust-version: [1.39.0]
 
     steps:
       # Checkout repository
@@ -25,6 +25,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+
+      # Verify Node.js Version
+      - name: Check Node.js Version
+        run: |
+          if [[ "$(node -v)" != v16.* ]]; then
+            echo "Error: Incorrect Node.js version. Required: 16.x"
+            exit 1
+          else
+            echo "Node.js version is correct: $(node -v)"
+          fi
 
       # Set OpenSSL Legacy Provider
       - name: Set OpenSSL Legacy Provider
@@ -45,6 +55,16 @@ jobs:
           toolchain: ${{ matrix.rust-version }}
           target: wasm32-unknown-unknown
           override: true
+
+      # Verify Rust Version
+      - name: Check Rust Version
+        run: |
+          if [[ "$(rustc --version)" != *"1.39.0"* ]]; then
+            echo "Error: Incorrect Rust version. Required: 1.39.0"
+            exit 1
+          else
+            echo "Rust version is correct: $(rustc --version)"
+          fi
 
       # Install wasm-pack
       - name: Install wasm-pack
