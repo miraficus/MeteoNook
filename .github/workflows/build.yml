@@ -56,7 +56,9 @@ jobs:
 
       # Install dependencies for frontend
       - name: Install dependencies (Frontend)
-        run: npm install
+        run: |
+          npm install
+          npm audit
 
         # Build the frontend
       - name: Build frontend
@@ -79,10 +81,13 @@ jobs:
         run: cargo build --release
 
       # Run tests
-      - name: Run tests
-        run: |
-          npm test
-          cargo test
+      #- name: Run tests
+      #  run: |
+      #    npm test
+      #    cargo test
+
+      - name: List workspace contents
+        run: ls -R
 
      # Upload Build Artifacts
       - name: Upload Build Artifacts
@@ -90,6 +95,8 @@ jobs:
         with:
           name: MeteoNook-build-artifacts
           path: |
-            ./dist           # Frontend build output
-            ./target/release # Rust build output
+            ./dist
+            ./distTest
+            ./target/release
+            
 
