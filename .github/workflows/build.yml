@@ -1,10 +1,11 @@
-name: Build Project
+name: Build Project & Upload Artifacts
 
 on:
   push:
     branches:
       - main
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -62,10 +63,6 @@ jobs:
       - name: Build frontend
         run: npm run build
 
-      # Install wasm-pack
-      # - name: Install wasm-pack
-      #  run: cargo install wasm-pack
-
       # Build WebAssembly Package
       - name: Build WebAssembly Package
         run: wasm-pack build --target bundler
@@ -79,10 +76,10 @@ jobs:
         run: cargo build --release
 
       # Run tests
-      #- name: Run tests
-      #  run: |
-      #    npm test
-      #    cargo test
+      - name: Run tests
+        run: |
+          npm test
+          cargo test
 
       - name: List workspace contents
         run: ls -R
@@ -91,10 +88,9 @@ jobs:
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4.4.3
         with:
-          name: MeteoNook-build-artifacts
+          name: MeteoNook-build-artifacts-run${{ github.run_number }}
           path: |
             ./dist
             ./distTest
             ./target/release
             
-
