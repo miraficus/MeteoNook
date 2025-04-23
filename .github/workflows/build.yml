@@ -62,10 +62,6 @@ jobs:
       - name: Install dependencies (Frontend)
         run: npm install
 
-      # Build the frontend
-      - name: Build frontend
-        run: npm run build
-
       # Install wasm-pack
       - name: Install wasm-pack
         run: cargo install wasm-pack
@@ -77,6 +73,10 @@ jobs:
       # Install Rust dependencies
       - name: Install dependencies (Rust)
         run: cargo fetch
+
+        # Build the frontend
+      - name: Build frontend
+        run: npm run build
 
       # Build the Rust project
       - name: Build backend
