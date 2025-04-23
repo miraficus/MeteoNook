@@ -1,0 +1,22 @@
+{
+  "short_name": "MeteoNook",
+  "name": "MeteoNook",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "16x16 24x24 32x32 48x48 72x72 96x96 128x128 256x256 512x512 1024x1024",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "start_url": "index.html",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#f8f9fa",
+  "background_color": "#ffffff",
+  "description": "Weather prediction tool for Animal Crossing: New Horizons"
+}
