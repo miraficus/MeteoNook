@@ -58,7 +58,7 @@ jobs:
       - name: Install dependencies (Frontend)
         run: |
           npm install
-          npm audit
+          npm audit fix
 
         # Build the frontend
       - name: Build frontend
