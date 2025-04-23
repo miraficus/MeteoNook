@@ -1,0 +1,58 @@
+name: Build Project
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+        rust-version: [stable]
+
+    steps:
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Set up Node.js for JavaScript, TypeScript, and Vue
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      # Install dependencies for frontend
+      - name: Install dependencies (Frontend)
+        run: npm install
+
+      # Build the frontend
+      - name: Build frontend
+        run: npm run build
+
+      # Set up Rust for backend
+      - name: Set up Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ matrix.rust-version }}
+          target: wasm32-unknown-unknown
+          override: true
+
+      # Install Rust dependencies
+      - name: Install dependencies (Rust)
+        run: cargo fetch
+
+      # Build the Rust project
+      - name: Build backend
+        run: cargo build --release
+
+      # Run tests
+      - name: Run tests
+        run: |
+          npm test
+          cargo test
