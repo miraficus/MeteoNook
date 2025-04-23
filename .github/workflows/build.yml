@@ -12,8 +12,8 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x] # Use Node.js 16.x to ensure compatibility with OpenSSL
-        rust-version: [1.64.0] # Use Rust 1.64.0 for wasm-bindgen v0.2.67 compatibility
+        node-version: [16.x] # Use older Node.js for OpenSSL compatibility
+        rust-version: [1.56.0] # Use Rust 1.56.0 for compatibility with older wasm-bindgen and .cargo/config
 
     steps:
       # Checkout repository
@@ -26,7 +26,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      # Set OpenSSL Legacy Provider for Node.js
+      # Set OpenSSL Legacy Provider
       - name: Set OpenSSL Legacy Provider
         run: echo "NODE_OPTIONS=--openssl-legacy-provider" >> $GITHUB_ENV
 
@@ -43,7 +43,16 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: ${{ matrix.rust-version }}
+          target: wasm32-unknown-unknown
           override: true
+
+      # Install wasm-pack
+      - name: Install wasm-pack
+        run: cargo install wasm-pack
+
+      # Build WebAssembly Package
+      - name: Build WebAssembly Package
+        run: wasm-pack build --target bundler
 
       # Install Rust dependencies
       - name: Install dependencies (Rust)
