@@ -86,7 +86,7 @@ jobs:
 
      # Upload Build Artifacts
       - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4.4.3
         with:
           name: MeteoNook-build-artifacts
           path: |
