@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x]
-        rust-version: [1.60.0]
+        rust-version: [1.65.0]
 
     steps:
       # Checkout repository
@@ -47,8 +47,8 @@ jobs:
       # Verify Rust Version
       - name: Check Rust Version
         run: |
-          if [[ "$(rustc --version)" != *"1.60.0"* ]]; then
-            echo "Error: Incorrect Rust version. Required: 1.60.0"
+          if [[ "$(rustc --version)" != *"1.65.0"* ]]; then
+            echo "Error: Incorrect Rust version. Required: 1.65.0"
             exit 1
           else
             echo "Rust version is correct: $(rustc --version)"
