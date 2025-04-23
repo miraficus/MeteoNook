@@ -40,14 +40,6 @@ jobs:
       - name: Set OpenSSL Legacy Provider
         run: echo "NODE_OPTIONS=--openssl-legacy-provider" >> $GITHUB_ENV
 
-      # Install dependencies for frontend
-      - name: Install dependencies (Frontend)
-        run: npm install
-
-      # Build the frontend
-      - name: Build frontend
-        run: npm run build
-
       # Set up Rust
       - name: Set up Rust
         uses: actions-rs/toolchain@v1
@@ -65,6 +57,14 @@ jobs:
           else
             echo "Rust version is correct: $(rustc --version)"
           fi
+
+      # Install dependencies for frontend
+      - name: Install dependencies (Frontend)
+        run: npm install
+
+      # Build the frontend
+      - name: Build frontend
+        run: npm run build
 
       # Install wasm-pack
       - name: Install wasm-pack
